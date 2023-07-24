@@ -1,5 +1,10 @@
 <script>
-  import '../app.css'
+	import '../app.css';
+	import Nav from './Nav.svelte';
 </script>
 
-<slot />
+<Nav />
+
+<main>
+	<slot />
+</main>

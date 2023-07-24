@@ -5,18 +5,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-	--soft-yellow: #ffeb3b;
-	--dark-gray: #333333;
-	--black: #000000;
-	--soft-black: #1a1a1a;
-	--soft-yellow-tint: #fff176;
-	--soft-yellow-shade: #fdd835;
-	--white: #ffffff;
-}
-
-body {
-	background-color: var(--black);
-	color: var(--white);
-	font-family: 'Fira Sans', sans-serif;
+@layer base {
+	html {
+		font-family: 'Fira Sans', sans-serif;
+	}
 }
