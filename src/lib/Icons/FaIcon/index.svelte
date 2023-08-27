@@ -14,7 +14,14 @@
 	const svgPathData = typeof src.icon[4] === 'string' ? src.icon[4] : '';
 </script>
 
-<svg role="img" xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox={viewBox} fill={color}>
+<svg
+	role="img"
+	xmlns="http://www.w3.org/2000/svg"
+	width={size}
+	height={size}
+	{viewBox}
+	fill={color}
+>
 	<title>{title}</title>
 	<path d={svgPathData} />
 </svg>
