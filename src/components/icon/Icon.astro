@@ -1,0 +1,13 @@
+---
+interface Props {
+  icon: string;
+}
+
+const { icon } = Astro.props;
+
+// Component dynamically loaded
+const SimpleIconComponentModule = await import(`./icons/${icon}.astro`);
+const SimpleIconComponent = SimpleIconComponentModule.default;
+---
+
+<SimpleIconComponent />

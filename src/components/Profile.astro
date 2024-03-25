@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import profileImage from "../assets/images/profile.jpg";
+---
+
+<section class="flex items-center flex-col mb-10">
+  <Image
+    class="rounded-full object-contain h-40 w-40 mb-8 shadow-lg"
+    src={profileImage}
+    alt="Andrés Castillo"
+  />
+  <h1
+    class="text-5xl font-bold text-yellow-light dark:text-yellow mb-2 text-center"
+  >
+    Hi, i'm Andrés Castillo
+  </h1>
+  <p
+    class="mb-8 text-surface2-light dark:text-surface2 font-medium text-xl text-center"
+  >
+    Front End Developer
+  </p>
+  <p class="text-text-light dark:text-text text-center">
+    I'm a passionate Front End Developer with a special love for JavaScript and
+    Web Development. I'm driven by creating seamless, user-focused interfaces,
+    and I've honed my skills in JavaScript, HTML, CSS, and various modern
+    frameworks. I believe that learning is an ongoing process, and sharing
+    knowledge is integral to growth. I actively participate in tech communities,
+    write blogs, and mentor upcoming coders. Always excited to connect, learn,
+    and create the next big thing in web development!
+  </p>
+</section>
