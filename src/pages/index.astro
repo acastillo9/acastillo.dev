@@ -1,12 +1,42 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Profile from "../components/Profile.astro";
-import Skills from "../components/Skills.astro";
+import { Navigation } from "../components/Navigation";
+import { HeroSection } from "../components/HeroSection";
+import AboutSection from "../components/AboutSection.astro";
+import SkillsSection from "../components/SkillsSection.astro";
+import ProjectsSection from "../components/ProjectsSection.astro";
+import BlogPreviewSection from "../components/BlogPreviewSection.astro";
+import ContactSection from "../components/ContactSection.astro";
+import Footer from "../components/Footer.astro";
 ---
 
-<Layout title="Andrés Castillo | Front End Developer">
-  <div class="container m-auto h-full flex flex-col justify-center">
-    <Profile />
-    <Skills />
-  </div>
+<Layout
+  title="Andrés Castillo — AI Engineer & Software Developer"
+  description="Portfolio of Andrés Castillo, showcasing projects, skills, and blog posts on AI engineering and software development."
+>
+  <Navigation client:load />
+  <main>
+    <HeroSection client:visible />
+    <div class="mx-auto max-w-6xl px-6">
+      <hr class="border-border" />
+    </div>
+    <AboutSection />
+    <div class="mx-auto max-w-6xl px-6">
+      <hr class="border-border" />
+    </div>
+    <SkillsSection />
+    <div class="mx-auto max-w-6xl px-6">
+      <hr class="border-border" />
+    </div>
+    <ProjectsSection />
+    <div class="mx-auto max-w-6xl px-6">
+      <hr class="border-border" />
+    </div>
+    <BlogPreviewSection />
+    <div class="mx-auto max-w-6xl px-6">
+      <hr class="border-border" />
+    </div>
+    <ContactSection />
+  </main>
+  <Footer />
 </Layout>

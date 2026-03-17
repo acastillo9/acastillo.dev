@@ -1,0 +1,54 @@
+---
+import { skillCategories } from "../data/skills";
+---
+
+<section
+  id="skills"
+  class="px-6 py-28 lg:py-36"
+  aria-labelledby="skills-heading"
+>
+  <div class="mx-auto max-w-6xl">
+    <div data-reveal class="mb-16 max-w-2xl">
+      <p class="mb-2 font-mono text-sm tracking-widest text-primary">
+        Skills & Tools
+      </p>
+      <h2
+        id="skills-heading"
+        class="text-balance text-3xl font-bold text-foreground sm:text-4xl"
+      >
+        Technologies I Work With
+      </h2>
+      <p class="mt-4 leading-relaxed text-muted-foreground">
+        I believe in choosing the right tool for the job. Here are the
+        technologies I use most frequently.
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+      {
+        skillCategories.map((category, i) => (
+          <div
+            data-reveal
+            data-reveal-delay={String(i * 100)}
+            class="group rounded-xl border border-border bg-card p-6 transition-all duration-700 hover:border-primary/40 hover:shadow-[0_0_32px_rgba(0,210,200,0.06)]"
+          >
+            <h3 class="mb-4 font-mono text-sm font-medium tracking-wider text-primary">
+              {category.title}
+            </h3>
+            <ul class="space-y-2.5" role="list">
+              {category.skills.map((skill) => (
+                <li class="flex items-center gap-3 text-sm text-muted-foreground transition-colors group-hover:text-foreground/80">
+                  <span
+                    class="h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60"
+                    aria-hidden="true"
+                  />
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

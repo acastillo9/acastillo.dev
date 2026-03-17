@@ -1,0 +1,189 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<Layout title={`${post.data.title} | Blog`} description={post.data.excerpt}>
+  <!-- Header -->
+  <header
+    class="border-b border-border bg-card/50 backdrop-blur-md sticky top-0 z-50"
+  >
+    <div class="mx-auto max-w-4xl px-6 py-4">
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m12 19-7-7 7-7"></path>
+          <path d="M19 12H5"></path>
+        </svg>
+        <span>Back to Blog</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Article -->
+  <main class="mx-auto max-w-4xl px-6 py-12">
+    <article class="animate-fade-in">
+      <!-- Meta -->
+      <div class="mb-8">
+        <div
+          class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4"
+        >
+          <span class="flex items-center gap-1.5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M8 2v4"></path>
+              <path d="M16 2v4"></path>
+              <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+              <path d="M3 10h18"></path>
+            </svg>
+            {formatDate(post.data.date)}
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            {post.data.readTime}
+          </span>
+        </div>
+
+        <!-- Title -->
+        <h1
+          class="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight text-balance mb-6"
+        >
+          {post.data.title}
+        </h1>
+
+        <!-- Tags -->
+        <div class="flex flex-wrap items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-muted-foreground"
+          >
+            <path
+              d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"
+            ></path>
+            <circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle>
+          </svg>
+          {
+            post.data.tags.map((tag: string) => (
+              <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                {tag}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <hr class="border-border mb-10" />
+
+      <!-- Content -->
+      <div
+        class="prose prose-invert prose-lg max-w-none [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:text-foreground [&>h2]:mt-10 [&>h2]:mb-4 [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:text-foreground [&>h3]:mt-8 [&>h3]:mb-4 [&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:mb-6"
+      >
+        <Content />
+      </div>
+
+      <!-- Footer -->
+      <hr class="border-border my-12" />
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <a
+          href="/blog"
+          class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m12 19-7-7 7-7"></path>
+            <path d="M19 12H5"></path>
+          </svg>
+          <span>Back to all posts</span>
+        </a>
+
+        <a
+          href="/#contact"
+          class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+        >
+          Get in Touch
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <!-- Simple Footer -->
+  <footer class="border-t border-border py-8">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <p class="text-sm text-muted-foreground">
+        &copy; {new Date().getFullYear()} Andrés Castillo. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</Layout>

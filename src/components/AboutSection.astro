@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+import profileImg from "../assets/images/profile.jpg";
+import { siteData } from "../data/site";
+---
+
+<section id="about" class="px-6 py-28 lg:py-36" aria-labelledby="about-heading">
+  <div
+    data-reveal
+    class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-5 lg:gap-16"
+  >
+    <!-- Headshot -->
+    <div class="flex items-start justify-center lg:col-span-2">
+      <div
+        class="relative aspect-square w-full max-w-xs overflow-hidden rounded-2xl border border-border bg-secondary"
+      >
+        <Image
+          src={profileImg}
+          alt="Profile photo"
+          class="h-full w-full object-cover"
+          widths={[320, 640]}
+          sizes="(max-width: 768px) 320px, 320px"
+        />
+        <!-- Accent border glow -->
+        <div
+          class="pointer-events-none absolute -inset-px rounded-2xl border border-primary/20"
+          aria-hidden="true"
+        >
+        </div>
+      </div>
+    </div>
+
+    <!-- Bio -->
+    <div class="flex flex-col justify-center lg:col-span-3">
+      <p class="mb-2 font-mono text-sm tracking-widest text-primary">
+        About Me
+      </p>
+      <h2
+        id="about-heading"
+        class="text-balance text-3xl font-bold text-foreground sm:text-4xl"
+      >
+        {siteData.aboutHeadline}
+      </h2>
+      <div class="mt-6 space-y-4 leading-relaxed text-muted-foreground">
+        {siteData.bio.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+      <div class="mt-8 flex flex-wrap gap-3">
+        {
+          siteData.stats.map((stat) => (
+            <span class="rounded-md border border-border bg-secondary px-3 py-1.5 font-mono text-xs text-muted-foreground">
+              {stat}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
