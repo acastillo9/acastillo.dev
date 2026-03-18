@@ -1,0 +1,15 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import HomePage from "../../components/pages/HomePage.astro";
+import { getTranslations } from "../../i18n/index";
+
+const t = getTranslations("es");
+---
+
+<Layout
+  title={t.meta.homeTitle}
+  description={t.meta.homeDescription}
+  locale="es"
+>
+  <HomePage t={t} locale="es" />
+</Layout>

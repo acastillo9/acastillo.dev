@@ -1,6 +1,13 @@
 ---
 import { Image } from "astro:assets";
 import { projects } from "../data/projects";
+import type { Translations } from "../i18n/index";
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "../assets/images/projects/*",
@@ -16,17 +23,16 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
   <div class="mx-auto max-w-6xl">
     <div data-reveal class="mb-16 max-w-2xl">
       <p class="mb-2 font-mono text-sm tracking-widest text-primary">
-        Selected Work
+        {t.projects.label}
       </p>
       <h2
         id="projects-heading"
         class="text-balance text-3xl font-bold text-foreground sm:text-4xl"
       >
-        Projects I've Built
+        {t.projects.heading}
       </h2>
       <p class="mt-4 leading-relaxed text-muted-foreground">
-        Each project represents a unique challenge. I focus on clean code,
-        performance, and delivering real value.
+        {t.projects.description}
       </p>
     </div>
 
@@ -81,7 +87,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
                       target="_blank"
                       rel="noopener noreferrer"
                       class="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-                      aria-label={`View ${project.title} source code on GitHub`}
+                      aria-label={t.projects.viewSource.replace("{title}", project.title)}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +111,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
                       target="_blank"
                       rel="noopener noreferrer"
                       class="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
-                      aria-label={`View ${project.title} live demo`}
+                      aria-label={t.projects.viewDemo.replace("{title}", project.title)}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -126,13 +132,13 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
                   )}
                   {project.status === "in-development" && (
                     <span class="rounded-md bg-primary/10 px-2 py-0.5 font-mono text-xs text-primary">
-                      In Development
+                      {t.projects.inDevelopment}
                     </span>
                   )}
                 </div>
               </div>
               <p class="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground">
-                {project.description}
+                {t.projects.descriptions[project.title] || project.description}
               </p>
               <div class="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (

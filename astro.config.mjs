@@ -6,4 +6,9 @@ import vercel from "@astrojs/vercel";
 export default defineConfig({
   integrations: [react()],
   adapter: vercel(),
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "es"],
+    routing: { prefixDefaultLocale: false },
+  },
 });

@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request }) => {
     if (!apiKey) {
       console.error("RESEND_API_KEY is not set");
       return new Response(
-        JSON.stringify({ error: "Server configuration error." }),
+        JSON.stringify({ error: "SERVER_ERROR" }),
         { status: 500 },
       );
     }
@@ -22,7 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!name || !email || !message) {
       return new Response(
-        JSON.stringify({ error: "All fields are required." }),
+        JSON.stringify({ error: "FIELDS_REQUIRED" }),
         { status: 400 },
       );
     }
@@ -30,14 +30,14 @@ export const POST: APIRoute = async ({ request }) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return new Response(
-        JSON.stringify({ error: "Invalid email address." }),
+        JSON.stringify({ error: "INVALID_EMAIL" }),
         { status: 400 },
       );
     }
 
     if (message.length > 5000) {
       return new Response(
-        JSON.stringify({ error: "Message is too long (max 5000 characters)." }),
+        JSON.stringify({ error: "MESSAGE_TOO_LONG" }),
         { status: 400 },
       );
     }
@@ -53,7 +53,7 @@ export const POST: APIRoute = async ({ request }) => {
     if (error) {
       console.error("Resend error:", error);
       return new Response(
-        JSON.stringify({ error: "Failed to send email. Please try again." }),
+        JSON.stringify({ error: "SEND_FAILED" }),
         { status: 500 },
       );
     }
@@ -61,7 +61,7 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch {
     return new Response(
-      JSON.stringify({ error: "Something went wrong. Please try again." }),
+      JSON.stringify({ error: "UNKNOWN" }),
       { status: 500 },
     );
   }

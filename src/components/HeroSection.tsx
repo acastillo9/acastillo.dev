@@ -1,13 +1,26 @@
 import { useEffect, useState } from "react";
 import { ArrowDown } from "lucide-react";
-import { siteData } from "../data/site";
 
-const roles = siteData.roles;
+interface HeroTranslations {
+  greeting: string;
+  name: string;
+  tagline: string;
+  roles: string[];
+  viewWork: string;
+  getInTouch: string;
+  scrollToAbout: string;
+}
 
-export function HeroSection() {
+interface Props {
+  t: HeroTranslations;
+}
+
+export function HeroSection({ t }: Props) {
   const [roleIndex, setRoleIndex] = useState(0);
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const roles = t.roles;
 
   useEffect(() => {
     const currentRole = roles[roleIndex];
@@ -47,13 +60,13 @@ export function HeroSection() {
           className="mb-4 font-mono text-sm tracking-widest text-primary opacity-0 animate-fade-in"
           style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
         >
-          {"Hello, I'm"}
+          {t.greeting}
         </p>
         <h1
           className="text-balance text-5xl font-bold tracking-tight text-foreground opacity-0 animate-fade-in-up sm:text-6xl lg:text-7xl"
           style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
         >
-          {siteData.name}
+          {t.name}
         </h1>
         <div
           className="mt-6 flex h-8 items-center justify-center opacity-0 animate-fade-in"
@@ -71,7 +84,7 @@ export function HeroSection() {
           className="mx-auto mt-8 max-w-xl text-pretty leading-relaxed text-muted-foreground opacity-0 animate-fade-in"
           style={{ animationDelay: "1s", animationFillMode: "forwards" }}
         >
-          {siteData.tagline}
+          {t.tagline}
         </p>
         <div
           className="mt-10 flex flex-col items-center gap-4 opacity-0 animate-fade-in-up sm:flex-row sm:justify-center"
@@ -81,13 +94,13 @@ export function HeroSection() {
             href="#projects"
             className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all hover:brightness-110 hover:shadow-[0_0_24px_rgba(0,210,200,0.25)]"
           >
-            View My Work
+            {t.viewWork}
           </a>
           <a
             href="#contact"
             className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-sm font-medium text-foreground transition-all hover:border-primary hover:text-primary"
           >
-            Get in Touch
+            {t.getInTouch}
           </a>
         </div>
       </div>
@@ -96,7 +109,7 @@ export function HeroSection() {
       <a
         href="#about"
         className="absolute bottom-10 left-1/2 -translate-x-1/2 text-muted-foreground transition-colors hover:text-primary animate-bounce"
-        aria-label="Scroll to about section"
+        aria-label={t.scrollToAbout}
       >
         <ArrowDown className="h-5 w-5" />
       </a>

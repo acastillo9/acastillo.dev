@@ -1,13 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import Layout from "../../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { getTranslations, getDateLocale } from "../../i18n/index";
+import { getTranslations, getDateLocale } from "../../../i18n/index";
 
-const locale = "en";
+const locale = "es";
 const t = getTranslations(locale);
 
 const posts = await getCollection("blog", ({ data }) => {
-  return (data as any).locale === locale || (!("locale" in (data as any)) && locale === "en");
+  return (data as any).locale === "es";
 });
 const sortedPosts = posts.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
@@ -27,20 +27,20 @@ function formatDate(date: Date): string {
 <Layout
   title={t.meta.blogTitle}
   description={t.blog.description}
-  locale="en"
+  locale="es"
 >
   <header
     class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border"
   >
     <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
       <a
-        href="/"
+        href="/es"
         class="font-mono text-lg tracking-wider text-primary transition-colors hover:text-foreground"
       >
         {"^["}
       </a>
       <a
-        href="/"
+        href="/es"
         class="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
       >
         <svg
@@ -100,7 +100,7 @@ function formatDate(date: Date): string {
 
                 <h2 class="mb-2 text-xl font-semibold text-foreground transition-colors group-hover:text-primary">
                   <a
-                    href={`/blog/${post.id}`}
+                    href={`/es/blog/${post.id}`}
                     class="after:absolute after:inset-0"
                   >
                     {post.data.title}
@@ -160,7 +160,7 @@ function formatDate(date: Date): string {
   <footer class="border-t border-border bg-card py-8">
     <div class="mx-auto max-w-6xl px-6 text-center">
       <a
-        href="/"
+        href="/es"
         class="font-mono text-lg text-primary transition-colors hover:text-foreground"
       >
         {"^["}

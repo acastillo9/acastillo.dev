@@ -1,5 +1,12 @@
 ---
 import { socialLinks } from "../data/social";
+import type { Translations } from "../i18n/index";
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
 
 const iconPaths: Record<string, string> = {
   GitHub:
@@ -16,8 +23,7 @@ const iconPaths: Record<string, string> = {
     class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row"
   >
     <p class="font-mono text-xs text-muted-foreground">
-      Andrés Castillo &copy; {new Date().getFullYear()}. Built with Astro &
-      Tailwind CSS.
+      {t.footer.copyright.replace("{year}", String(new Date().getFullYear()))}
     </p>
 
     <nav aria-label="Footer social links">

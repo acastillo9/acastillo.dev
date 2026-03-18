@@ -10,6 +10,7 @@ const blog = defineCollection({
     readTime: z.string(),
     tags: z.array(z.string()),
     image: z.string().optional(),
+    locale: z.enum(["en", "es"]).default("en"),
   }),
 });
 

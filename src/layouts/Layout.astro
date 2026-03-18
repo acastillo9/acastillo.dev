@@ -1,25 +1,45 @@
 ---
 import "../styles/global.css";
-
+import type { Locale } from "../i18n/index";
 interface Props {
   title: string;
   description?: string;
+  locale?: Locale;
 }
 
+const locale = (Astro.props.locale ?? Astro.currentLocale ?? "en") as Locale;
 const {
   title,
   description = "Full Stack Developer — building performant, accessible web applications.",
 } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+// Build canonical and alternate paths
+let enPath: string;
+let esPath: string;
+
+if (locale === "es") {
+  enPath = currentPath.replace(/^\/es/, "") || "/";
+  esPath = currentPath;
+} else {
+  enPath = currentPath;
+  esPath = `/es${currentPath === "/" ? "" : currentPath}`;
+}
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
+
+    <link rel="alternate" hreflang="en" href={enPath} />
+    <link rel="alternate" hreflang="es" href={esPath} />
+    <link rel="alternate" hreflang="x-default" href={enPath} />
 
     <link
       rel="preconnect"
@@ -40,6 +60,17 @@ const {
 
     <script>
       import "../scripts/scroll-reveal.ts";
+    </script>
+    <script is:inline>
+      if (!document.cookie.includes("locale=")) {
+        const lang = navigator.language || navigator.languages[0];
+        if (lang && lang.startsWith("es") && !location.pathname.startsWith("/es")) {
+          document.cookie = "locale=es;path=/;max-age=31536000";
+          location.replace("/es" + location.pathname);
+        } else {
+          document.cookie = "locale=en;path=/;max-age=31536000";
+        }
+      }
     </script>
   </body>
 </html>

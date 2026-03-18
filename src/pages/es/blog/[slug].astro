@@ -1,14 +1,14 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import Layout from "../../../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
-import { getTranslations, getDateLocale } from "../../i18n/index";
+import { getTranslations, getDateLocale } from "../../../i18n/index";
 
-const locale = "en";
+const locale = "es";
 const t = getTranslations(locale);
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => {
-    return (data as any).locale === "en" || !("locale" in (data as any));
+    return (data as any).locale === "es";
   });
   return posts.map((post) => ({
     params: { slug: post.id },
@@ -30,14 +30,14 @@ function formatDate(date: Date): string {
 }
 ---
 
-<Layout title={`${post.data.title} | Blog`} description={post.data.excerpt} locale="en">
+<Layout title={`${post.data.title} | Blog`} description={post.data.excerpt} locale="es">
   <!-- Header -->
   <header
     class="border-b border-border bg-card/50 backdrop-blur-md sticky top-0 z-50"
   >
     <div class="mx-auto max-w-4xl px-6 py-4">
       <a
-        href="/blog"
+        href="/es/blog"
         class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
       >
         <svg
@@ -156,7 +156,7 @@ function formatDate(date: Date): string {
 
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
         <a
-          href="/blog"
+          href="/es/blog"
           class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
         >
           <svg
@@ -177,7 +177,7 @@ function formatDate(date: Date): string {
         </a>
 
         <a
-          href="/#contact"
+          href="/es/#contact"
           class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
         >
           {t.nav.getInTouch}

@@ -4,6 +4,7 @@ excerpt: "NYT says AI is ending programming as we know it. I've been coding for 
 date: 2026-03-17
 readTime: "6 min read"
 tags: ["AI", "Career", "Software Engineering", "Opinion"]
+locale: en
 ---
 
 The New York Times just published a piece titled *"Coding After Coders: The End of Computer Programming as We Know It."* They interviewed 70+ developers at Google, Amazon, Microsoft, and startups. Washington Post followed. Stanford published data saying AI is already bleeding jobs from young people in software development. And somewhere in San Francisco, a junior engineer anonymously told the SF Standard: *"I'm basically a proxy to Claude Code. My manager tells me what to do, and I tell Claude to do it."*
@@ -62,7 +63,7 @@ This is the section I'd want someone to have sent me if I were starting out toda
 
 **Pick a depth specialty.** Generalist "I know a bit of everything" is becoming commoditized. Distributed systems, security, performance engineering, AI integration, domain-specific complexity (fintech, healthcare, logistics) — pick something hard and go deep.
 
-## What This Means If You're a Tech Lead or Architect
+## What This Means If You're a Senior
 
 Your job description just changed whether your company knows it yet.
 
@@ -86,4 +87,4 @@ That gap is where the real story is. And we should be talking about it more.
 
 ---
 
-*Are you a junior dev navigating this transition? Or a tech lead trying to figure out how to build a team in this environment? I'd love to hear how you're thinking about it — find me on [X](https://x.com/acastillo119).*
+*Are you a junior dev navigating this transition? Or a tech lead trying to figure out how to build a team in this environment? I'd love to hear how you're thinking about it — find me on [X](https://x.com/acastillodev).*

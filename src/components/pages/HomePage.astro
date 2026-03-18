@@ -1,0 +1,45 @@
+---
+import { Navigation } from "../Navigation";
+import { HeroSection } from "../HeroSection";
+import AboutSection from "../AboutSection.astro";
+import SkillsSection from "../SkillsSection.astro";
+import ProjectsSection from "../ProjectsSection.astro";
+import BlogPreviewSection from "../BlogPreviewSection.astro";
+import ContactSection from "../ContactSection.astro";
+import Footer from "../Footer.astro";
+import type { Translations } from "../../i18n/index";
+import type { Locale } from "../../i18n/index";
+
+interface Props {
+  t: Translations;
+  locale: Locale;
+}
+
+const { t, locale } = Astro.props;
+---
+
+<Navigation client:load t={t.nav} locale={locale} />
+<main>
+  <HeroSection client:visible t={t.hero} />
+  <div class="mx-auto max-w-6xl px-6">
+    <hr class="border-border" />
+  </div>
+  <AboutSection t={t} />
+  <div class="mx-auto max-w-6xl px-6">
+    <hr class="border-border" />
+  </div>
+  <SkillsSection t={t} />
+  <div class="mx-auto max-w-6xl px-6">
+    <hr class="border-border" />
+  </div>
+  <ProjectsSection t={t} />
+  <div class="mx-auto max-w-6xl px-6">
+    <hr class="border-border" />
+  </div>
+  <BlogPreviewSection t={t} locale={locale} />
+  <div class="mx-auto max-w-6xl px-6">
+    <hr class="border-border" />
+  </div>
+  <ContactSection t={t} />
+</main>
+<Footer t={t} />

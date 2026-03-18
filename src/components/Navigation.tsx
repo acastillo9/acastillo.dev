@@ -1,17 +1,51 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "#contact" },
-];
+interface NavTranslations {
+  about: string;
+  skills: string;
+  projects: string;
+  blog: string;
+  contact: string;
+  getInTouch: string;
+  openMenu: string;
+  closeMenu: string;
+  switchLanguage: string;
+}
 
-export function Navigation() {
+interface Props {
+  t: NavTranslations;
+  locale?: string;
+  blogHref?: string;
+}
+
+export function Navigation({ t, locale = "en", blogHref }: Props) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [switchHref, setSwitchHref] = useState(locale === "es" ? "/" : "/es");
+
+  const resolvedBlogHref = blogHref ?? (locale === "es" ? "/es/blog" : "/blog");
+
+  const navLinks = [
+    { label: t.about, href: "#about" },
+    { label: t.skills, href: "#skills" },
+    { label: t.projects, href: "#projects" },
+    { label: t.blog, href: resolvedBlogHref },
+    { label: t.contact, href: "#contact" },
+  ];
+
+  useEffect(() => {
+    const pathname = window.location.pathname;
+    if (locale === "es") {
+      setSwitchHref(pathname.replace(/^\/es/, "") || "/");
+    } else {
+      setSwitchHref(`/es${pathname === "/" ? "" : pathname}`);
+    }
+  }, [locale]);
+
+  function handleLanguageSwitch() {
+    document.cookie = `locale=${locale === "es" ? "en" : "es"};path=/;max-age=31536000`;
+  }
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 40);
@@ -49,12 +83,22 @@ export function Navigation() {
               </a>
             </li>
           ))}
-          <li>
+          <li className="flex items-center">
+            <a
+              href={switchHref}
+              onClick={handleLanguageSwitch}
+              className="relative flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all hover:after:w-full"
+            >
+              <Globe className="h-3.5 w-3.5" />
+              {t.switchLanguage}
+            </a>
+          </li>
+          <li className="flex items-center">
             <a
               href="#contact"
               className="rounded-lg border border-primary bg-primary/10 px-4 py-2 text-sm text-primary transition-all hover:bg-primary hover:text-primary-foreground"
             >
-              Get in Touch
+              {t.getInTouch}
             </a>
           </li>
         </ul>
@@ -63,7 +107,7 @@ export function Navigation() {
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
           className="text-muted-foreground transition-colors hover:text-foreground md:hidden"
-          aria-label={isMobileOpen ? "Close menu" : "Open menu"}
+          aria-label={isMobileOpen ? t.closeMenu : t.openMenu}
           aria-expanded={isMobileOpen}
         >
           {isMobileOpen ? (
@@ -89,13 +133,23 @@ export function Navigation() {
                 </a>
               </li>
             ))}
+            <li>
+              <a
+                href={switchHref}
+                onClick={() => { handleLanguageSwitch(); setIsMobileOpen(false); }}
+                className="flex items-center gap-2 rounded-lg px-4 py-3 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              >
+                <Globe className="h-3.5 w-3.5" />
+                {t.switchLanguage}
+              </a>
+            </li>
             <li className="pt-2">
               <a
                 href="#contact"
                 onClick={() => setIsMobileOpen(false)}
                 className="block rounded-lg border border-primary bg-primary/10 px-4 py-3 text-center text-sm text-primary transition-all hover:bg-primary hover:text-primary-foreground"
               >
-                Get in Touch
+                {t.getInTouch}
               </a>
             </li>
           </ul>

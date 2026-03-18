@@ -1,5 +1,12 @@
 ---
 import { skillCategories } from "../data/skills";
+import type { Translations } from "../i18n/index";
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
 ---
 
 <section
@@ -10,17 +17,16 @@ import { skillCategories } from "../data/skills";
   <div class="mx-auto max-w-6xl">
     <div data-reveal class="mb-16 max-w-2xl">
       <p class="mb-2 font-mono text-sm tracking-widest text-primary">
-        Skills & Tools
+        {t.skills.label}
       </p>
       <h2
         id="skills-heading"
         class="text-balance text-3xl font-bold text-foreground sm:text-4xl"
       >
-        Technologies I Work With
+        {t.skills.heading}
       </h2>
       <p class="mt-4 leading-relaxed text-muted-foreground">
-        I believe in choosing the right tool for the job. Here are the
-        technologies I use most frequently.
+        {t.skills.description}
       </p>
     </div>
 
@@ -33,7 +39,7 @@ import { skillCategories } from "../data/skills";
             class="group rounded-xl border border-border bg-card p-6 transition-all duration-700 hover:border-primary/40 hover:shadow-[0_0_32px_rgba(0,210,200,0.06)]"
           >
             <h3 class="mb-4 font-mono text-sm font-medium tracking-wider text-primary">
-              {category.title}
+              {t.skills.categories[category.title] || category.title}
             </h3>
             <ul class="space-y-2.5" role="list">
               {category.skills.map((skill) => (

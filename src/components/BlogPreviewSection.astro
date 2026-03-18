@@ -1,13 +1,27 @@
 ---
 import { getCollection } from "astro:content";
+import type { Translations } from "../i18n/index";
+import type { Locale } from "../i18n/index";
+import { localePath, getDateLocale } from "../i18n/index";
 
-const posts = await getCollection("blog");
+interface Props {
+  t: Translations;
+  locale?: Locale;
+}
+
+const { t, locale = "en" } = Astro.props;
+
+const posts = await getCollection("blog", ({ data }) => {
+  return (data as any).locale === locale || (!("locale" in data) && locale === "en");
+});
 const latestPosts = posts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0, 3);
 
+const dateLocale = getDateLocale(locale);
+
 function formatDate(date: Date): string {
-  return date.toLocaleDateString("en-US", {
+  return date.toLocaleDateString(dateLocale, {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -18,15 +32,15 @@ function formatDate(date: Date): string {
 <section id="blog" class="py-24" aria-labelledby="blog-heading">
   <div class="mx-auto max-w-6xl px-6">
     <div data-reveal class="mb-16">
-      <p class="mb-2 font-mono text-sm text-primary">// latest posts</p>
+      <p class="mb-2 font-mono text-sm text-primary">{t.blog.label}</p>
       <h2
         id="blog-heading"
         class="text-3xl font-bold text-foreground sm:text-4xl"
       >
-        From the Blog
+        {t.blog.heading}
       </h2>
       <p class="mt-4 max-w-2xl text-muted-foreground">
-        Thoughts on development, design, and building better software.
+        {t.blog.description}
       </p>
     </div>
 
@@ -49,7 +63,7 @@ function formatDate(date: Date): string {
 
               <h3 class="mb-2 text-lg font-semibold text-foreground transition-colors group-hover:text-primary">
                 <a
-                  href={`/blog/${post.id}`}
+                  href={localePath(`/blog/${post.id}`, locale)}
                   class="after:absolute after:inset-0"
                 >
                   {post.data.title}
@@ -106,10 +120,10 @@ function formatDate(date: Date): string {
 
     <div data-reveal data-reveal-delay="400" class="mt-12 text-center">
       <a
-        href="/blog"
+        href={localePath("/blog", locale)}
         class="inline-flex items-center gap-2 rounded-lg border border-primary bg-primary/10 px-6 py-3 text-sm font-medium text-primary transition-all hover:bg-primary hover:text-primary-foreground"
       >
-        View All Posts
+        {t.blog.viewAll}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
