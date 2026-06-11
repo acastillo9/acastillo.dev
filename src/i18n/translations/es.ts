@@ -115,7 +115,7 @@ export const es: Translations = {
   },
   footer: {
     copyright:
-      "Andrés Castillo © {year}. Construido con Astro & Tailwind CSS.",
+      "Andrés Castillo © {year}.",
     allRights: "© {year} Andrés Castillo. Todos los derechos reservados.",
   },
   meta: {
