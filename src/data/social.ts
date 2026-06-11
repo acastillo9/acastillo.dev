@@ -16,4 +16,8 @@ export const socialLinks: SocialLink[] = [
     label: "Email",
     href: "mailto:info@acastillo.dev",
   },
+  {
+    label: "Phone",
+    href: "tel:+573337509764",
+  },
 ];
